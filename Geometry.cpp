@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <string>
 #include <cstring>
+#include <vector>
 
 
 template<class T>
@@ -55,7 +56,7 @@ struct Point {
         return {x - other.x, y - other.y};
     }
 
-    bool operator==(const Point<T> other) const {
+    bool operator==(const Point<T>& other) const {
         return ((x == other.x) && (y == other.y));
     }
 
@@ -137,14 +138,13 @@ struct Vector : public Point<T> {
 
 ///////////////////////////////////////
 /////////////////////////////////////// LINE
-template <class T = double>
+template <class T>
 struct Line {
     Point<T> a;
     Point<T> b;
 
-    Line(Point<T> first, Point<T> second) {
-        a = first;
-        b = second;
+    
+    Line(Point<T> first, Point<T> second) : a(first), b(second) {
     }
 
     Line(T A, T B, T C) {
@@ -162,6 +162,24 @@ struct Line {
         Point<T> second_point(a.x + vector.x, a.y + vector.y);
         b = second_point;
     }
+
+    // template<class EQ>
+    // bool operator ==(const Line<T>& l){
+    //     return EQ(l, *this);
+    // }
+
+    // template<class CMP>
+    // bool operator < (const Line<T>& l){
+    //     return CMP(l, *this);
+    // }
+
+    // template<class CMP>
+    bool compareWithLine(const Line<T>& l, auto& CMP) const {
+        return CMP(*this, l);
+    }
+
+
+
 };
 
 ///////////////////////////////////////
@@ -180,19 +198,33 @@ T VectorProduct(const Vector<T>& first, const Vector<T>& second) {
 ///////////////////////////////////////
 
 
-
-
 int main() {
     Point x1(2., 3.);
     Point x2(20., 30.);
-    Vector x3(x2);
-    Vector x5(x2);
-    Point x4(x2);
-    // x2.SetY(100.);
+
+
+    Point x3(-2., -3.);
+    Point x4(-20., -30.);
+    // Point x4(x2);
     std::cout << (x1 < x2) << '\n';
-    std::hash<std::string> h1{};
-    std::hash<std::string> h2{};
-    std::cout << h1("aaab") << ' ' << h1("aaab") << '\n';
-    std::cout << h2("aaab") << ' ' << h2("aaab") << '\n';
+
+    Line l1 (x1, x2);
+
+
+    Line l2 (x3, x4);
+
+
+    auto cmp1 = [](const Line<double>& l1, const Line<double>& l2){
+        if(l1.a != l2.a) return l1.a < l2.a;
+        else return l1.b < l2.b;
+    };
+
+
+    std::cout << l1.compareWithLine(l2, cmp1) << '\n';
+
+    std::vector<Line<double>> lines(3, l1);
+    std::sort(lines.begin(), lines.end(), cmp1);
+    // std::cout << cmp1(l1,l2);
+
     return 0;
 };
