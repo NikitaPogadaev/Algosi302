@@ -1,0 +1,14 @@
+// struct DefaultVertexEq {
+//   template <class VertexPayload>
+//   bool operator()(const DefaultVertex<VertexPayload>& lhs, const DefaultVertex<VertexPayload>& rhs) const {
+//     return lhs.GetKey() == rhs.GetKey();
+//   }
+// };
+
+// struct DefaultVertexHash {
+//   template <class VertexPayload>
+//   bool operator()(const DefaultVertex<VertexPayload>& other) const {
+//     return std::hash<size_t>(other.GetKey());
+//   }
+// };
+  // virtual void Traversal(const Vertex&) const = 0;
