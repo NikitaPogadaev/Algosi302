@@ -265,17 +265,3 @@ private:
 
 struct MySuffAutomat : SuffAutomat<char, UsefullPayLoad>{};
 
-
-int main () {
-    SuffAutomat<char, UsefullPayLoad> suff_auto(std::string("dgdfg"));
-
-    suff_auto.add('g');
-
-    SuffAutomat<std::string> suff_auto_str;
-    suff_auto_str.add("fghgfyh");
-
-    MySuffAutomat my_suff;
-    my_suff.add('g');
-
-    return 0;
-}

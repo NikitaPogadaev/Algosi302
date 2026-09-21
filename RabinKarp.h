@@ -250,24 +250,24 @@ void run() {
 }
 } // namespace tests
 
-int main(int argc, char **argv) {
-    if (argc > 1 && std::string_view(argv[1]) == "--self-test") {
-        tests::run();
-        return 0;
-    }
-    std::string text, pattern;
-    if (!std::getline(std::cin, text) || !std::getline(std::cin, pattern))
-        return 0;
-    std::random_device rd;
-    std::seed_seq seed{rd(), rd(), rd(), rd()};
-    std::mt19937_64 rng(seed);
-    const auto params = rk::make_params(rng);
-    bool first = true;
-    rk::rabin_karp(text, pattern, params, [&](std::size_t pos) {
-        if (!first)
-            std::cout << ' ';
-        std::cout << pos;
-        first = false;
-    });
-    std::cout << '\n';
-}
+// int main(int argc, char **argv) {
+//     if (argc > 1 && std::string_view(argv[1]) == "--self-test") {
+//         tests::run();
+//         return 0;
+//     }
+//     std::string text, pattern;
+//     if (!std::getline(std::cin, text) || !std::getline(std::cin, pattern))
+//         return 0;
+//     std::random_device rd;
+//     std::seed_seq seed{rd(), rd(), rd(), rd()};
+//     std::mt19937_64 rng(seed);
+//     const auto params = rk::make_params(rng);
+//     bool first = true;
+//     rk::rabin_karp(text, pattern, params, [&](std::size_t pos) {
+//         if (!first)
+//             std::cout << ' ';
+//         std::cout << pos;
+//         first = false;
+//     });
+//     std::cout << '\n';
+// }

@@ -462,35 +462,3 @@ size_t Period(const std::string& str) {
     return per;
 }
 
-int main() {
-    std::string pattern;
-    std::string text;
-    std::cin >> pattern >> text;
-    StringFunction zf;
-    zf.SetState(std::make_shared<ZFunction>());
-
-    auto zfunc = zf.GetFunctionResult(pattern + "#" + text);
-    std::reverse(pattern.begin(), pattern.end());
-    std::reverse(text.begin(), text.end());
-    auto revzfunc = zf.GetFunctionResult(pattern + "#" + text);
-    size_t lenpattern = pattern.size();
-    size_t co = 0;
-    for (size_t ind = lenpattern + 1; ind < revzfunc.size() - lenpattern + 1;
-         ++ind) {
-        size_t revind = revzfunc.size() - ind + 1;
-        if (revzfunc[revind] + zfunc[ind] >= lenpattern - 1) {
-            ++co;
-        }
-    }
-    std::cout << co << '\n';
-
-    for (size_t ind = lenpattern + 1; ind < revzfunc.size() - lenpattern + 1;
-         ++ind) {
-        size_t revind = revzfunc.size() - ind + 1;
-        if (revzfunc[revind] + zfunc[ind] >= lenpattern - 1) {
-            std::cout << ind - lenpattern << ' ';
-        }
-    }
-
-    return 0;
-}
